@@ -18,5 +18,5 @@ export class LoginUserDto {
     message:
       'The password must have a Uppercase, lowercase letter and a number',
   })
-  pasword: string;
+  password: string;
 }

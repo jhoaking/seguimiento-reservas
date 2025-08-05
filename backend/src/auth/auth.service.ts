@@ -34,7 +34,7 @@ export class AuthService {
 
       await this.userRepository.save(user);
 
-      return { user };
+      return { user, token: this.getJwtToken({ id: user.id }) };
     } catch (error) {
       console.log(error);
       this.handlerDbError(error);
@@ -42,19 +42,19 @@ export class AuthService {
   }
 
   async loginUser(loginUserDto: LoginUserDto) {
-    const { pasword, email } = loginUserDto;
+    const { password, email } = loginUserDto;
 
     try {
       const user = await this.userRepository.findOne({
         where: { email },
-        select: { password: true, email: true, id: true },
+        select: { email: true, password: true, id: true },
         //TODO 2FA
       });
 
       if (!user)
         throw new UnauthorizedException(`user with ${email} not valid`);
 
-      if (!bcrypt.compareSync(pasword, user.password))
+      if (!bcrypt.compareSync(password, user.password))
         throw new UnauthorizedException(`password  of user not valid `);
 
       return {

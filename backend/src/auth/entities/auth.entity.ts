@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TwoFactor } from '../two-factor/entities/two-factor.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -38,6 +40,13 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  @OneToMany(
+    () => TwoFactor,
+    (twoFactor) => twoFactor.user,
+    {eager : true}
+  )
+  twoFactor : TwoFactor[]
 
   @BeforeInsert()
   checkFieldBeforeInsert() {
