@@ -2,6 +2,7 @@ import {
   IsArray,
   IsDate,
   IsDateString,
+  IsInt,
   IsNumber,
   IsObject,
   IsOptional,
@@ -41,5 +42,9 @@ export class CreateReservaDto {
   @IsUUID()
   userId:string
 
-  
+  @IsNumber()
+  @IsPositive()
+  @IsInt()
+  servicioId:number
+
 }

@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservasModule } from './reservas/reservas.module';
 import { ServiciosModule } from './servicios/servicios.module';
+import { CommonModule } from './common/common.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -23,6 +24,8 @@ import { ServiciosModule } from './servicios/servicios.module';
     ReservasModule,
 
     ServiciosModule,
+
+    CommonModule,
   ],
   controllers: [],
   providers: [],
