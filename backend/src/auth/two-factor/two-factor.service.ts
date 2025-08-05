@@ -34,7 +34,7 @@ export class TwoFactorService {
       email: user.email,
       createdAt: new Date(),
       expiresAt,
-      user,
+      user : user,
     });
 
     await this.twoFactorRepository.save(record);

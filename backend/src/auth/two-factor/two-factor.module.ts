@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TwoFactor } from './entities/two-factor.entity';
 import { AuthModule } from '../auth.module';
 import { EmailService } from './EmailService/sendEmail';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   controllers: [TwoFactorController],
@@ -12,6 +13,7 @@ import { EmailService } from './EmailService/sendEmail';
   imports: [
     TypeOrmModule.forFeature([TwoFactor]),
     forwardRef(() => AuthModule),
+    PassportModule,
   ],
   exports: [TypeOrmModule, TwoFactorService],
 })

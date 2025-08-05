@@ -49,7 +49,7 @@ export class ServiciosService {
   async findOne(term: string) {
     let service: Servicio | null = null;
 
-    if (isUUID(service)) {
+    if (isUUID(term)) {
       service = await this.servicioRepository.findOneBy({ id: term });
     } else {
       const queryBuilder = this.servicioRepository.createQueryBuilder('serv');

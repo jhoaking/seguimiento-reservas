@@ -7,6 +7,6 @@ import { UserRoleGuard } from '../guards/user-role.guard';
 export function Auth(...roles: ValidRoles[]) {
   return applyDecorators(
     validMetaRoles(...roles),
-    UseGuards(AuthGuard(), UserRoleGuard),
+    UseGuards(AuthGuard('jwt'), UserRoleGuard),
   );
 }

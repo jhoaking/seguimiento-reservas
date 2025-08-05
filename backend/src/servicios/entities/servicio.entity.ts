@@ -6,7 +6,9 @@ export class Servicio {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text')
+  @Column('text', {
+    unique: true,
+  })
   name: string;
 
   @Column('text', { nullable: true })
@@ -17,21 +19,14 @@ export class Servicio {
   })
   price: number;
 
-  @Column('int', {
-    default: 0,
-  })
-  duration: number;
+  @Column('text')
+  duration: string;
 
   @Column('bool', {
     default: true,
   })
   activo: boolean;
 
-
-  @OneToMany(
-    () => Reserva,
-    (reserva) =>reserva.servicio,
-    {eager :true} 
-  )
-  reserva:Reserva[]
+  @OneToMany(() => Reserva, (reserva) => reserva.servicio, { eager: true })
+  reserva: Reserva[];
 }

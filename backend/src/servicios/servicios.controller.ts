@@ -43,7 +43,7 @@ export class ServiciosController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateServicioDto: UpdateServicioDto,
-  ) {
+  ) { 
     return this.serviciosService.update(id, updateServicioDto);
   }
 

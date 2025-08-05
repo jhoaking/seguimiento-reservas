@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Repository } from 'typeorm';
 
-
 import { User } from '../entities/auth.entity';
 import { JwtPayload } from '../interface/auth-payload.interface';
 
@@ -36,4 +35,3 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return user;
   }
 }
- 
