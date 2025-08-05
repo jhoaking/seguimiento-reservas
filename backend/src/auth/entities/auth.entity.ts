@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TwoFactor } from '../two-factor/entities/two-factor.entity';
+import { Reserva } from 'src/reservas/entities/reserva.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -47,6 +48,14 @@ export class User {
     {eager : true}
   )
   twoFactor : TwoFactor[]
+
+
+  @OneToMany(
+    ()=> Reserva,
+    (reserva) => reserva.user,
+    {cascade : true}
+  )
+  reservas:Reserva[]
 
   @BeforeInsert()
   checkFieldBeforeInsert() {
