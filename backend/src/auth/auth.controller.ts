@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserhDto, LoginUserDto } from './dto';
-
+import { GetUser } from './Decorator/get-user.decorator';
+import { User } from './entities/auth.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -13,8 +14,12 @@ export class AuthController {
   }
 
   @Post('/login')
-  login(@Body() loginUserDto : LoginUserDto){
-    return this.authService.loginUser(loginUserDto)
+  login(@Body() loginUserDto: LoginUserDto) {
+    return this.authService.loginUser(loginUserDto);
   }
-  
+
+  @Get('check-auth-status')
+  checkAuthStatus(@GetUser() user: User) {
+    return this.authService.chekAuhtStatus(user);
+  }
 }

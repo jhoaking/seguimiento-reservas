@@ -12,7 +12,7 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from './entities/auth.entity';
 import { CreateUserhDto, LoginUserDto } from './dto';
-import { JwtPayload } from './interface/auth-payload.interface';
+import { JwtPayload } from './interface';
 import { TwoFactorService } from './two-factor/two-factor.service';
 
 @Injectable()
@@ -75,7 +75,7 @@ export class AuthService {
     return token;
   }
 
-  refreshToken(user: User) {
+  chekAuhtStatus(user: User) {
     return {
       ...user,
       token: this.getJwtToken({ id: user.id }),
