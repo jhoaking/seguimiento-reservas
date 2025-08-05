@@ -6,12 +6,12 @@ import { User } from './entities/auth.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { MagikLinkModule } from './magik-link/magik-link.module';
 import { TwoFactorModule } from './two-factor/two-factor.module';
+import { JwtStrategy } from './strategy/jwt.strategy.ts';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService,JwtStrategy],
   imports: [
     ConfigModule,
     TypeOrmModule.forFeature([User]),
@@ -28,10 +28,9 @@ import { TwoFactorModule } from './two-factor/two-factor.module';
         };
       },
     }),
-    MagikLinkModule,
     TwoFactorModule,
   ],
 
-  exports: [TypeOrmModule, AuthService,JwtModule],
+  exports: [TypeOrmModule, AuthService,JwtModule,JwtStrategy],
 })
 export class AuthModule {}

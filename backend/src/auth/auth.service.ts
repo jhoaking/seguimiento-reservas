@@ -34,7 +34,7 @@ export class AuthService {
 
       await this.userRepository.save(user);
 
-      return { user, token: this.getJwtToken({ id: user.id }) };
+      return { user };
     } catch (error) {
       console.log(error);
       this.handlerDbError(error);
@@ -59,7 +59,7 @@ export class AuthService {
 
       return {
         user,
-        token: this.getJwtToken({ id: user.id }),
+        message : 'codigo 2fa enviado al email'
       };
     } catch (error) {
       console.log(error);
