@@ -17,12 +17,12 @@ export class EmailService {
 
   async sendCode(to: string, code: string) {
     const emailOptions = {
-      from: `"Mi App" <${process.env.MAIL_USER}>`,
+      from: `"Mi App" <${process.env.MAIL_USER}>`, 
       to,
       subject: 'Tu código de verificacion',
       html: `<p>Tu código de verificación es: <b>${code}</b></p>`,
     };
 
-    await this.transporter.sendEmail(emailOptions);
+    await this.transporter.sendMail(emailOptions);
   }
 }

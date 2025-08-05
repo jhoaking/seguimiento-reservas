@@ -13,6 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from './entities/auth.entity';
 import { CreateUserhDto, LoginUserDto } from './dto';
 import { JwtPayload } from './interface/auth-payload.interface';
+import { TwoFactorService } from './two-factor/two-factor.service';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,8 @@ export class AuthService {
     private readonly userRepository: Repository<User>,
 
     private readonly jwtService: JwtService,
+
+    private readonly twoFactorService: TwoFactorService,
   ) {}
   async registerUser(createUserDto: CreateUserhDto) {
     const { password, ...rest } = createUserDto;
@@ -48,7 +51,6 @@ export class AuthService {
       const user = await this.userRepository.findOne({
         where: { email },
         select: { email: true, password: true, id: true },
-        //TODO 2FA
       });
 
       if (!user)
@@ -57,9 +59,10 @@ export class AuthService {
       if (!bcrypt.compareSync(password, user.password))
         throw new UnauthorizedException(`password  of user not valid `);
 
+      await this.twoFactorService.sendCodeEmail(user);
+
       return {
-        user,
-        message : 'codigo 2fa enviado al email'
+        message: 'codigo 2fa enviado al email',
       };
     } catch (error) {
       console.log(error);

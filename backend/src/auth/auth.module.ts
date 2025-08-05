@@ -11,7 +11,7 @@ import { JwtStrategy } from './strategy/jwt.strategy.ts';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService,JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   imports: [
     ConfigModule,
     TypeOrmModule.forFeature([User]),
@@ -31,6 +31,6 @@ import { JwtStrategy } from './strategy/jwt.strategy.ts';
     TwoFactorModule,
   ],
 
-  exports: [TypeOrmModule, AuthService,JwtModule,JwtStrategy],
+  exports: [TypeOrmModule, AuthService, JwtModule, JwtStrategy],
 })
 export class AuthModule {}

@@ -1,10 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { TwoFactor } from './entities/two-factor.entity';
 import { AuthService } from '../auth.service';
 import { User } from '../entities/auth.entity';
+import { EmailService } from './EmailService/sendEmail';
 
 @Injectable()
 export class TwoFactorService {
@@ -12,7 +18,10 @@ export class TwoFactorService {
     @InjectRepository(TwoFactor)
     private readonly twoFactorRepository: Repository<TwoFactor>,
 
+    @Inject(forwardRef(() => AuthService))
     private readonly auhtService: AuthService,
+
+    private readonly emailService: EmailService,
   ) {}
 
   async sendCodeEmail(user: User) {
@@ -36,6 +45,9 @@ export class TwoFactorService {
   async veferifyCode(email: string, code: string): Promise<{ token: string }> {
     const record = await this.twoFactorRepository.findOne({
       where: { email, code, isUsed: false },
+      relations: {
+        user: true,
+      },
     });
 
     if (!record || record.expiresAt < new Date())
@@ -54,6 +66,6 @@ export class TwoFactorService {
   }
 
   private sendEmail(to: string, code: string) {
-    return;
+    return this.emailService.sendCode(to, code);
   }
 }
