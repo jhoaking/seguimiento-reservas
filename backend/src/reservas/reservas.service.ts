@@ -94,27 +94,60 @@ export class ReservasService {
     return reservation;
   }
 
-  async update(id: string, updateReservaDto: UpdateReservaDto) {
-    const { ...toUpdate } = updateReservaDto;
+  async update(id: string, updateReservaDto: UpdateReservaDto, user: User) {
+    await this.validateOwnerShip(id, user);
 
-    const reservation = await this.reservaRepository.preload({
+    const updateReservation = await this.reservaRepository.preload({
       id,
-      ...toUpdate,
+      ...updateReservaDto,
     });
+    if (!updateReservation) {
+      throw new NotFoundException(
+        `No se pudo pre-cargar la reserva con id ${id}`,
+      );
+    }
 
-    if (!reservation)
-      throw new NotFoundException(`service with ${id} not found`);
+    await this.reservaRepository.save(updateReservation);
 
-    return this.findOne(id);
+    return updateReservation;
   }
 
-  async remove(id: string) {
-    const reservation = await this.findOne(id);
+  async remove(id: string, user: User) {
+    const reservation = await this.validateOwnerShip(id, user);
 
     await this.reservaRepository.remove(reservation);
   }
 
-  findAllReservationByUser(user: User) {
-    return user;
+  async findAllReservationByUser(user: User): Promise<Reserva[]> {
+    const reservationOfUser = await this.reservaRepository.find({
+      where: {
+        user: { id: user.id },
+      },
+      relations: {
+        servicio: true,
+      },
+    });
+
+    if (reservationOfUser.length === 0)
+      throw new NotFoundException('no tienes ninguna reserva');
+
+    return reservationOfUser;
+  }
+
+  private async validateOwnerShip(id: string, user: User) {
+    const reservation = await this.reservaRepository.findOne({
+      where: { id },
+      relations: { user: true },
+    });
+
+    if (!reservation)
+      throw new NotFoundException(`reservation with ${id} not found`);
+
+    if (reservation.user.id !== user.id)
+      throw new BadRequestException(
+        'no puedes actualizar una reserva que no es tuya ',
+      );
+
+    return reservation;
   }
 }
