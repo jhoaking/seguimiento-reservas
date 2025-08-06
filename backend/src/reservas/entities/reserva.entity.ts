@@ -40,6 +40,6 @@ export class Reserva {
   @ManyToOne(() => User, (user) => user.reservas, { eager: true })
   user: User;
 
-  @ManyToOne(() => Servicio, (servicio) => servicio.reserva)
+  @ManyToOne(() => Servicio, (servicio) => servicio.reserva, { eager: true })
   servicio: Servicio;
 }

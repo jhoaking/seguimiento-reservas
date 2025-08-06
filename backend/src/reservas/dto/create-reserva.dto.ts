@@ -11,7 +11,6 @@ import {
   IsUUID,
   MinLength,
 } from 'class-validator';
-import { User } from 'src/auth/entities/auth.entity';
 
 export class CreateReservaDto {
   @IsString()
@@ -42,9 +41,7 @@ export class CreateReservaDto {
   @IsUUID()
   userId:string
 
-  @IsNumber()
-  @IsPositive()
-  @IsInt()
-  servicioId:number
+  @IsUUID()
+  servicioId:string
 
 }

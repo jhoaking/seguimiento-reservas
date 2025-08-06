@@ -27,6 +27,6 @@ export class Servicio {
   })
   activo: boolean;
 
-  @OneToMany(() => Reserva, (reserva) => reserva.servicio, { eager: true })
+  @OneToMany(() => Reserva, (reserva) => reserva.servicio)
   reserva: Reserva[];
 }

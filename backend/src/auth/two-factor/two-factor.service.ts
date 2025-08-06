@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 
 import { TwoFactor } from './entities/two-factor.entity';
 import { AuthService } from '../auth.service';
@@ -25,6 +25,19 @@ export class TwoFactorService {
   ) {}
 
   async sendCodeEmail(user: User) {
+    const existingUser = await this.twoFactorRepository.findOne({
+      where: {
+        email: user.email,
+        isUsed: false,
+        expiresAt: MoreThan(new Date()),
+      },
+    });
+
+    if (existingUser) {
+      await this.sendEmail(user.email, existingUser.code);
+      return;
+    }
+
     const code = this.generatedCode();
 
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
@@ -34,7 +47,7 @@ export class TwoFactorService {
       email: user.email,
       createdAt: new Date(),
       expiresAt,
-      user : user,
+      user: user,
     });
 
     await this.twoFactorRepository.save(record);
