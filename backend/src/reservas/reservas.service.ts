@@ -97,9 +97,8 @@ export class ReservasService {
     } else {
       const queryBuilder = this.reservaRepository.createQueryBuilder('reser');
       reservation = await queryBuilder
-        .where('nombre =:nombre or fechaReserva =:fechaReserva', {
+        .where('nombre =:nombre', {
           nombre: term,
-          fechaReserva: term,
         })
         .getOne();
     }

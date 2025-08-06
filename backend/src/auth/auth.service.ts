@@ -63,6 +63,7 @@ export class AuthService {
 
       return {
         message: 'codigo 2fa enviado al email',
+        user: user
       };
     } catch (error) {
       console.log(error);
