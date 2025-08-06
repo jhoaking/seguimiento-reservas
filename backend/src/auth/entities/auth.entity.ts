@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { TwoFactor } from '../two-factor/entities/two-factor.entity';
 import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Historial } from 'src/historial/entities/historial.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -56,6 +57,12 @@ export class User {
     {cascade : true}
   )
   reservas:Reserva[]
+
+  @OneToMany(
+    () => Historial,
+    (historial) => historial.user
+  )
+  historial:Historial[]
 
   @BeforeInsert()
   checkFieldBeforeInsert() {

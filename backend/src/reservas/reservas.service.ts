@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -12,11 +13,15 @@ import { User } from 'src/auth/entities/auth.entity';
 import { Servicio } from 'src/servicios/entities/servicio.entity';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { validate as isUUID } from 'uuid';
+import { HistorialService } from 'src/historial/historial.service';
+import { TipoAccion } from 'src/historial/types/historial.types';
 @Injectable()
 export class ReservasService {
   constructor(
     @InjectRepository(Reserva)
     private readonly reservaRepository: Repository<Reserva>,
+
+    private readonly historialService: HistorialService,
   ) {}
 
   async create(createReservaDto: CreateReservaDto) {
@@ -55,6 +60,17 @@ export class ReservasService {
     });
 
     await this.reservaRepository.save(reservation);
+
+    await this.historialService.registrarAccion(
+      {
+        accion: 'crear_reserva' as TipoAccion,
+        descripcion: `el usuario ${user.fullName} con email ${user.email} creo una reserva para el servicio ${service.name}`,
+        entidadReferida: 'reserva',
+        idEntidad: reservation.id,
+      },
+      user,
+    );
+
     return reservation;
   }
 
@@ -109,6 +125,16 @@ export class ReservasService {
 
     await this.reservaRepository.save(updateReservation);
 
+    await this.historialService.registrarAccion(
+      {
+        accion: 'actualizar_reserva' as TipoAccion,
+        descripcion: `el usuario ${user.fullName} con email ${user.email} actualizo su reserva `,
+        entidadReferida: 'reserva',
+        idEntidad: id,
+      },
+      user,
+    );
+
     return updateReservation;
   }
 
@@ -116,6 +142,16 @@ export class ReservasService {
     const reservation = await this.validateOwnerShip(id, user);
 
     await this.reservaRepository.remove(reservation);
+
+    await this.historialService.registrarAccion(
+      {
+        accion: 'eliminar_reserva' as TipoAccion,
+        descripcion: `el usuario ${user.fullName} con email ${user.email}elimino su reserva reserva `,
+        entidadReferida: 'reserva',
+        idEntidad: reservation.id,
+      },
+      user,
+    );
   }
 
   async findAllReservationByUser(user: User): Promise<Reserva[]> {
@@ -144,7 +180,7 @@ export class ReservasService {
       throw new NotFoundException(`reservation with ${id} not found`);
 
     if (reservation.user.id !== user.id)
-      throw new BadRequestException(
+      throw new ForbiddenException(
         'no puedes actualizar una reserva que no es tuya ',
       );
 

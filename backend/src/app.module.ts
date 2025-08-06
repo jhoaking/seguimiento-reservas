@@ -6,6 +6,7 @@ import { ReservasModule } from './reservas/reservas.module';
 import { ServiciosModule } from './servicios/servicios.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
+import { HistorialModule } from './historial/historial.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -29,6 +30,8 @@ import { SeedModule } from './seed/seed.module';
     CommonModule,
 
     SeedModule,
+
+    HistorialModule,
   ],
   controllers: [],
   providers: [],
