@@ -7,6 +7,7 @@ import { ServiciosModule } from './servicios/servicios.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { HistorialModule } from './historial/historial.module';
+import { InteraccionesModule } from './interacciones/interacciones.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -32,6 +33,8 @@ import { HistorialModule } from './historial/historial.module';
     SeedModule,
 
     HistorialModule,
+
+    InteraccionesModule,
   ],
   controllers: [],
   providers: [],

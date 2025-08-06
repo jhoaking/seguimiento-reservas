@@ -10,6 +10,7 @@ import {
 import { TwoFactor } from '../two-factor/entities/two-factor.entity';
 import { Reserva } from 'src/reservas/entities/reserva.entity';
 import { Historial } from 'src/historial/entities/historial.entity';
+import { Interacciones } from 'src/interacciones/entities/interaccione.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -63,6 +64,14 @@ export class User {
     (historial) => historial.user
   )
   historial:Historial[]
+
+
+  @OneToMany(
+    () =>  Interacciones,
+    (interaccion) => interaccion.user,
+    {eager : true}
+  )
+  message : Interacciones[]
 
   @BeforeInsert()
   checkFieldBeforeInsert() {
