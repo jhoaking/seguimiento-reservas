@@ -6,7 +6,7 @@ export const sendMessageByN8n = async (payload: CreateInteraccioneDto) => {
 
   for (const url of urls) {
     try {
-      await axios.post(url);
+      await axios.post(url,payload);
       console.log(`Mensaje enviado correctamente a ${url}`);
     } catch (error) {
       console.error(`Error al enviar a ${url}:`, error.message);

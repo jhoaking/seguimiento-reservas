@@ -24,6 +24,7 @@ export class InteraccionesService {
 
   async create(
     createInteraccioneDto: CreateInteraccioneDto,
+    fromN8n: boolean,
   ): Promise<Interacciones> {
     const user = await this.userRepository.findOneBy({
       id: createInteraccioneDto.userId,
@@ -34,18 +35,22 @@ export class InteraccionesService {
         `user with ${createInteraccioneDto.userId} not found`,
       );
 
+    const remitente = fromN8n
+      ? Interaccion.ia
+      : createInteraccioneDto.remitente;
+
     const interaccion = this.interaccionesRepository.create({
       ...createInteraccioneDto,
+      remitente,
       user,
     });
 
     if (interaccion.remitente === 'user') {
       try {
-        await sendMessageByN8n({interaccion});
+        await sendMessageByN8n(createInteraccioneDto);
       } catch (error) {
         console.log(error);
-
-        console.warn('n8n falló, pero no se detiene la creación del mensaje');
+        console.error('n8n falló, pero no se detiene la creación del mensaje');
       }
     }
     await this.interaccionesRepository.save(interaccion);
