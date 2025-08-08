@@ -47,7 +47,7 @@ export class InteraccionesService {
 
     if (interaccion.remitente === 'user') {
       try {
-        await sendMessageByN8n(createInteraccioneDto);
+         sendMessageByN8n(createInteraccioneDto);
       } catch (error) {
         console.log(error);
         console.error('n8n falló, pero no se detiene la creación del mensaje');
