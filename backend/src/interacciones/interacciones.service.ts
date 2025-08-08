@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 import { AuthService } from 'src/auth/auth.service';
 import { User } from 'src/auth/entities/auth.entity';
 import { Interaccion } from './types/interacciones';
+import { sendMessageByN8n } from './adapter/n8n-adapter';
 
 @Injectable()
 export class InteraccionesService {
@@ -33,30 +34,22 @@ export class InteraccionesService {
         `user with ${createInteraccioneDto.userId} not found`,
       );
 
-    const ultima = await this.interaccionesRepository.findOne({
-      where: { user: { id: createInteraccioneDto.userId } },
-      order: { createdAt: 'DESC' },
-    });
-
-    if (ultima) {
-      if (ultima.remitente === createInteraccioneDto.remitente) {
-        throw new BadRequestException(
-          `El emisor anterior fue '${ultima.remitente}', se espera alternancia.`,
-        );
-      }
-    } else {
-      if (createInteraccioneDto.remitente !== Interaccion.user) {
-        throw new BadRequestException(
-          'La primera interacción debe ser del cliente.',
-        );
-      }
-    }
     const interaccion = this.interaccionesRepository.create({
       ...createInteraccioneDto,
       user,
     });
 
-    return this.interaccionesRepository.save(interaccion);
+    if (interaccion.remitente === 'user') {
+      try {
+        await sendMessageByN8n({interaccion});
+      } catch (error) {
+        console.log(error);
+
+        console.warn('n8n falló, pero no se detiene la creación del mensaje');
+      }
+    }
+    await this.interaccionesRepository.save(interaccion);
+    return interaccion;
   }
 
   async findAll(user_id: string): Promise<Interacciones[]> {
