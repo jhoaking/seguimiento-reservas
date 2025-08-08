@@ -45,7 +45,7 @@ export class InteraccionesService {
       user,
     });
 
-    if (interaccion.remitente === 'user') {
+    if (interaccion.remitente === 'user' || interaccion.remitente === 'admin') {
       try {
          sendMessageByN8n(createInteraccioneDto);
       } catch (error) {
