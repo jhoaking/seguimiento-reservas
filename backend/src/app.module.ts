@@ -27,7 +27,7 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
       synchronize: true,
       logging : true
     }),
-    
+     
 
     AuthModule,
 
