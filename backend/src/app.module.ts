@@ -25,7 +25,9 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
+      logging : true
     }),
+    
 
     AuthModule,
 
@@ -44,4 +46,6 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  
+}
