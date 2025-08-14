@@ -7,11 +7,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { sendMessageByN8n } from './adapter/n8n-adapter';
-import { Interaccion } from './types/interacciones';
+
 import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
 
 import { Interacciones } from './entities/interaccione.entity';
 import { User } from 'src/auth/entities/auth.entity';
+import { Interaccion } from './types/interacciones';
 
 @Injectable()
 export class InteraccionesService {
@@ -75,3 +76,4 @@ export class InteraccionesService {
     return message;
   }
 }
+ 
