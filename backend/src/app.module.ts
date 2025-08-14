@@ -18,16 +18,16 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
           process.env.STAGE === 'prod' ? { rejectUnauthorized: false } : null,
       },
       type: 'postgres',
+
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT!,
-      database: process.env.DB_NAME,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
-      logging : true
+      logging: true,
     }),
-     
 
     AuthModule,
 
@@ -46,6 +46,4 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {
-  
-}
+export class AppModule {}
