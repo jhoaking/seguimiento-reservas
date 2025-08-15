@@ -3,8 +3,8 @@ import { CreateInteraccioneDto } from '../dto/create-interaccione.dto';
 
 export const sendMessageByN8n = async (payload: CreateInteraccioneDto) => {
   const urls = [
-    'https://primary-production-3577.up.railway.app/webhook-test/e758b21c-c7ca-4fa5-b78c-ef00e65d817d',
-    'https://primary-production-3577.up.railway.app/webhook/e758b21c-c7ca-4fa5-b78c-ef00e65d817d',
+    'https://primary-production-3577.up.railway.app/webhook-test/aa5d2a3d-9b3a-499d-9d51-fc11e6154cae',
+    'https://primary-production-3577.up.railway.app/webhook/aa5d2a3d-9b3a-499d-9d51-fc11e6154cae',
   ];
 
   for (const url of urls) {
