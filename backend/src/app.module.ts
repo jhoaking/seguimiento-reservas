@@ -19,7 +19,7 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
       },
       type: 'postgres',
 
-      url: process.env.URL,
+      url:process.env.URL ,
       autoLoadEntities: true,
       synchronize: true,
       logging: true,
