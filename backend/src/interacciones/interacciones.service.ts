@@ -13,6 +13,7 @@ import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
 import { Interacciones } from './entities/interaccione.entity';
 import { User } from 'src/auth/entities/auth.entity';
 import { Interaccion } from './types/interacciones';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class InteraccionesService {
@@ -22,6 +23,8 @@ export class InteraccionesService {
 
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    private readonly authService: AuthService,
   ) {}
 
   async create(
@@ -49,7 +52,7 @@ export class InteraccionesService {
 
     if (interaccion.remitente === 'user' || interaccion.remitente === 'admin') {
       try {
-         sendMessageByN8n(createInteraccioneDto);
+        sendMessageByN8n(createInteraccioneDto);
       } catch (error) {
         console.log(error);
         console.error('n8n falló, pero no se detiene la creación del mensaje');
@@ -76,4 +79,3 @@ export class InteraccionesService {
     return message;
   }
 }
- 

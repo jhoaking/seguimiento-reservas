@@ -63,7 +63,7 @@ export class AuthService {
 
       return {
         message: 'codigo 2fa enviado al email',
-        user: user
+        user: user,
       };
     } catch (error) {
       console.log(error);
@@ -93,5 +93,11 @@ export class AuthService {
     console.log(error);
 
     throw new InternalServerErrorException('please check server  logs');
+  }
+
+  loginAi() {
+    const payload = { roles: ['ia'] };
+    const token = this.jwtService.sign(payload);
+    return token;
   }
 }

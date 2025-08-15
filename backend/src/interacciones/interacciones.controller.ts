@@ -17,7 +17,7 @@ export class InteraccionesController {
   constructor(private readonly interaccionesService: InteraccionesService) {}
 
   @Post()
-  @Auth()
+  @Auth(ValidRoles.user , ValidRoles.ia)
   create(
     @Body() createInteraccioneDto: CreateInteraccioneDto,
     @Headers('x-source') source: string,

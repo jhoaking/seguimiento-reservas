@@ -29,4 +29,9 @@ export class AuthController {
   checkAuthStatus(@GetUser() user: User) {
     return this.authService.chekAuhtStatus(user);
   }
+
+  @Post('/login-ia')
+  loginIa(){
+    return this.authService.loginAi();
+  }
 }
