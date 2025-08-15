@@ -62,7 +62,7 @@ export class InteraccionesService {
     return interaccion;
   }
 
-  async findAll(user_id: string): Promise<Interacciones[]> {
+  async findInteractionByUser(user_id: string): Promise<Interacciones[]> {
     const user = await this.userRepository.findOneBy({ id: user_id });
     if (!user) throw new NotFoundException(' user not found');
 

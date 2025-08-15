@@ -29,6 +29,6 @@ export class InteraccionesController {
   @Get(':id')
   @Auth(ValidRoles.admin )
   findAll(@Param('userId', ParseUUIDPipe) userId: string) {
-    return this.interaccionesService.findAll(userId);
+    return this.interaccionesService.findInteractionByUser(userId);
   }
 }
