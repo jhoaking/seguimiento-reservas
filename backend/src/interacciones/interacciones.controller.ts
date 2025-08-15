@@ -26,8 +26,8 @@ export class InteraccionesController {
     return this.interaccionesService.create(createInteraccioneDto, fromN8n);
   }
 
-  @Get()
-  @Auth(ValidRoles.admin)
+  @Get(':id')
+  @Auth(ValidRoles.admin )
   findAll(@Param('userId', ParseUUIDPipe) userId: string) {
     return this.interaccionesService.findAll(userId);
   }
