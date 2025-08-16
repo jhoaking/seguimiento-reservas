@@ -69,7 +69,7 @@ export class User {
   @OneToMany(
     () =>  Interacciones,
     (interaccion) => interaccion.user,
-    {eager : true}
+    {eager : false}
   )
   message : Interacciones[]
 
