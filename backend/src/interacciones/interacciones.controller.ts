@@ -11,6 +11,8 @@ import { InteraccionesService } from './interacciones.service';
 import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
 import { Auth } from 'src/auth/Decorator/auth.decorator';
 import { ValidRoles } from 'src/auth/interface';
+import { GetUser } from 'src/auth/Decorator/get-user.decorator';
+import { User } from 'src/auth/entities/auth.entity';
 
 @Controller('interacciones')
 export class InteraccionesController {
@@ -30,5 +32,11 @@ export class InteraccionesController {
   @Auth(ValidRoles.admin )
   findAll(@Param('id', ParseUUIDPipe) userId: string) {
     return this.interaccionesService.findInteractionByUser(userId);
+  }
+
+  @Get('/user')
+  @Auth()
+  findAllMessagesOfUser(@GetUser() user:User){
+    return this.interaccionesService.findInteractionByUser(user.id)
   }
 }

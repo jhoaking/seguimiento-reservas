@@ -67,7 +67,7 @@ export class InteraccionesService {
     if (!user) throw new NotFoundException(' user not found');
 
     const message = await this.interaccionesRepository.find({
-      where: { user: { id: user_id } },
+      where: { user: { id: user_id }, remitente : Interaccion.ia},
       relations: {
         user: true,
       },
