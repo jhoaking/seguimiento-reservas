@@ -15,7 +15,10 @@ import { UpdateServicioDto } from './dto/update-servicio.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { Auth } from 'src/auth/Decorator/auth.decorator';
 import { ValidRoles } from 'src/auth/interface';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Servicios')
 @Controller('servicios')
 export class ServiciosController {
   constructor(private readonly serviciosService: ServiciosService) {}
