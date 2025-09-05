@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+
 import { HistorialService } from './historial.service';
 import { CreateHistorialDto } from './dto/create-historial.dto';
-import { Auth } from 'src/auth/Decorator/auth.decorator';
-import { ValidRoles } from 'src/auth/interface';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { GetUser } from 'src/auth/Decorator/get-user.decorator';
-import { User } from 'src/auth/entities/auth.entity';
+import { Auth } from '../auth/Decorator/auth.decorator';
+import { ValidRoles } from '../auth/interface';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { GetUser } from '../auth/Decorator/get-user.decorator';
+import { User } from '../auth/entities/auth.entity';
 
 
 @Controller('historial')

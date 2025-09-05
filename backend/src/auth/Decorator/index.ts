@@ -1,2 +1,3 @@
-import { GetUser } from "./get-user.decorator";
-import { validMetaRoles } from "./role-protected.decorator";
+export { validMetaRoles } from "./role-protected.decorator";
+export { GetUser } from "./get-user.decorator";
+export { Auth } from "./auth.decorator";

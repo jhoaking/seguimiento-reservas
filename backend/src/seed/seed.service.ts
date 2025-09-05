@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ServiciosService } from 'src/servicios/servicios.service';
+
+import { ServiciosService } from '../servicios/servicios.service';
 import { initialData } from './data/seed-data';
 
 @Injectable()

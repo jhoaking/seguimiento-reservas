@@ -5,13 +5,17 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+
+import { validate as isUUID } from 'uuid';
+
+
 import { CreateServicioDto } from './dto/create-servicio.dto';
 import { UpdateServicioDto } from './dto/update-servicio.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Servicio } from './entities/servicio.entity';
-import { Repository } from 'typeorm';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { validate as isUUID } from 'uuid';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class ServiciosService {

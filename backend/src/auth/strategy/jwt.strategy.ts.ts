@@ -6,7 +6,7 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Repository } from 'typeorm';
 
 import { User } from '../entities/auth.entity';
-import { JwtPayload } from '../interface/auth-payload.interface';
+import { JwtPayload } from '../interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

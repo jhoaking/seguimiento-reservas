@@ -4,17 +4,19 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { validate as isUUID } from 'uuid';
+
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Reserva } from './entities/reserva.entity';
-import { Repository } from 'typeorm';
-import { User } from 'src/auth/entities/auth.entity';
-import { Servicio } from 'src/servicios/entities/servicio.entity';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { validate as isUUID } from 'uuid';
-import { HistorialService } from 'src/historial/historial.service';
-import { TipoAccion } from 'src/historial/types/historial.types';
+import { User } from '../auth/entities/auth.entity';
+import { Servicio } from '../servicios/entities/servicio.entity';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { HistorialService } from '../historial/historial.service';
+import { TipoAccion } from '../historial/types/historial.types';
 @Injectable()
 export class ReservasService {
   constructor(

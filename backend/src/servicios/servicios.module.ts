@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
+
 import { ServiciosService } from './servicios.service';
 import { ServiciosController } from './servicios.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Servicio } from './entities/servicio.entity';
-import { PassportModule } from '@nestjs/passport';
 
 @Module({
   controllers: [ServiciosController],

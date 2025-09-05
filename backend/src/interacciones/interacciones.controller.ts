@@ -9,10 +9,10 @@ import {
 } from '@nestjs/common';
 import { InteraccionesService } from './interacciones.service';
 import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
-import { Auth } from 'src/auth/Decorator/auth.decorator';
-import { ValidRoles } from 'src/auth/interface';
-import { GetUser } from 'src/auth/Decorator/get-user.decorator';
-import { User } from 'src/auth/entities/auth.entity';
+import { Auth } from '../auth/Decorator/auth.decorator';
+import { ValidRoles } from '../auth/interface';
+import { GetUser } from '../auth/Decorator/get-user.decorator';
+import { User } from '../auth/entities/auth.entity';
 
 @Controller('interacciones')
 export class InteraccionesController {

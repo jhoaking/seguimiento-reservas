@@ -9,13 +9,14 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { ServiciosService } from './servicios.service';
 import { CreateServicioDto } from './dto/create-servicio.dto';
 import { UpdateServicioDto } from './dto/update-servicio.dto';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { Auth } from 'src/auth/Decorator/auth.decorator';
-import { ValidRoles } from 'src/auth/interface';
-import { ApiTags } from '@nestjs/swagger';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { Auth } from '../auth/Decorator/auth.decorator';
+import { ValidRoles } from '../auth/interface';
 
 
 @ApiTags('Servicios')

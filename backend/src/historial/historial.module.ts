@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
+
+
 import { HistorialService } from './historial.service';
 import { HistorialController } from './historial.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Historial } from './entities/historial.entity';
-import { PassportModule } from '@nestjs/passport';
 
 @Module({
   controllers: [HistorialController],

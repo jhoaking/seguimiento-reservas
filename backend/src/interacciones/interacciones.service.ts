@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -11,7 +10,7 @@ import { sendMessageByN8n } from './adapter/n8n-adapter';
 import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
 
 import { Interacciones } from './entities/interaccione.entity';
-import { User } from 'src/auth/entities/auth.entity';
+import { User } from '../auth/entities/auth.entity';
 import { Interaccion } from './types/interacciones';
 import { AuthService } from 'src/auth/auth.service';
 

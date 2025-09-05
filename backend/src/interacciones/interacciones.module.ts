@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { InteraccionesService } from './interacciones.service';
 import { InteraccionesController } from './interacciones.controller';
 import { Interacciones } from './entities/interaccione.entity';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   controllers: [InteraccionesController],

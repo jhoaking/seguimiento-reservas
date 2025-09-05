@@ -9,14 +9,15 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
+
 import { ReservasService } from './reservas.service';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
-import { Auth } from 'src/auth/Decorator/auth.decorator';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { ValidRoles } from 'src/auth/interface';
-import { GetUser } from 'src/auth/Decorator/get-user.decorator';
-import { User } from 'src/auth/entities/auth.entity';
+import { Auth } from '../auth/Decorator/auth.decorator';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { ValidRoles } from '../auth/interface';
+import { GetUser } from '../auth/Decorator/get-user.decorator';
+import { User } from '../auth/entities/auth.entity';
 
 @Controller('reservas')
 export class ReservasController {

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateHistorialDto } from './dto/create-historial.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Historial } from './entities/historial.entity';
 import { Repository } from 'typeorm';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
-import { User } from 'src/auth/entities/auth.entity';
+
+import { CreateHistorialDto } from './dto/create-historial.dto';
+import { Historial } from './entities/historial.entity';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { User } from '../auth/entities/auth.entity';
 
 @Injectable()
 export class HistorialService {

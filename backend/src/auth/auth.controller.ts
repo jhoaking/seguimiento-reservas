@@ -2,8 +2,7 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 
-import { GetUser } from './Decorator/get-user.decorator';
-import { Auth } from './Decorator/auth.decorator';
+import { GetUser,Auth } from './Decorator';
 
 
 import { CreateUserhDto, LoginUserDto } from './dto';
