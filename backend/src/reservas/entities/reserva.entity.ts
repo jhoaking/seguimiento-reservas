@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Status } from '../types/types.reservation';
 
 @Entity({ name: 'reservas' })
 export class Reserva {
@@ -17,11 +18,10 @@ export class Reserva {
   @Column('text')
   nombre: string;
 
-  @Column('text', {
-    array: true,
-    default: ['pendiente'],
+  @Column({
+    enum: Status,
   })
-  estado: string[];
+  estado: Status;
 
   @Column('timestamp')
   fechaReserva: Date;
